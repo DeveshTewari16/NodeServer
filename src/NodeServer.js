@@ -15,6 +15,28 @@ password:"12345",
 database:"CrudDatabase"
 });
 
+const sqlGlobalCommit ='Commit';
+
+app.post('/api/edituser',(req,res)=>{
+    console.log('Updated');
+    userId=req.body.userId;
+    fullName=req.body.fullName;
+    email=req.body.email;
+    phone=req.body.phone;
+    address=req.body.address;
+    
+
+    sqlUpdate="update user_details set User_id=(?),full_name=(?),email=(?),phone=(?),address=(?) where user_id='5'" ;
+    
+    db.query(sqlUpdate,[userId,fullName,email,phone,address],(err,result)=>{
+        if (err) console.log(err);
+        res.send('Data Updated Successfully');
+    });
+    db.query(sqlGlobalCommit);
+    console.log('Updated');
+    
+});
+
 app.post('/api/newuser',(req,res)=>{
 
     userId=req.body.userId;
